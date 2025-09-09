@@ -44,6 +44,7 @@ func GetOverallCustomerRating() ( float64, error) {
 	err := config.DB.Model(&models.Ride{}).
 		Select("AVG(customer_rating)").
 		Where("customer_rating IS NOT NULL").
+		Group("customer_id").
 		Scan(&avgRating).Error
 
 	return avgRating, err
