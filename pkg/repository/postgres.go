@@ -79,6 +79,7 @@ func GetOverallDriverRating() (string, error) {
 	err := config.DB.Model(&models.Ride{}).
 		Select("AVG(driver_ratings)").
 		Where("driver_ratings IS NOT NULL").
+		Group("customer_id").
 		Scan(&avgRating).Error
 
 	return avgRating, err
